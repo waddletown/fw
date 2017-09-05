@@ -1,5 +1,4 @@
-//#include <Keyboard.h>
-//#include <Servo.h>
+#include <Servo.h>
 #include <Romi32U4.h>
 #include <PololuRPiSlave.h>
 
@@ -47,8 +46,6 @@ Romi32U4ButtonA buttonA;
 Romi32U4ButtonB buttonB;
 Romi32U4ButtonC buttonC;
 Romi32U4Encoders encoders;
-
-
 
 void setup()
 {
