@@ -39,7 +39,7 @@ Waddle Town robot.
 
 // Motor Encoder Parameters and Robot Geometry
 // Wheel diameter in meters
-const float wheel_diameter = 0.07;
+const float wheel_diameter = 0.068;
 
 // Encoder ticks per output revolution
 const float ticks_per_output_revolution = 12*120;
@@ -48,11 +48,11 @@ const float ticks_per_output_revolution = 12*120;
 const float meters_per_tick = (M_PI * wheel_diameter)/ticks_per_output_revolution;
 
 // Wheelbase in meters
-const float wheelbase = 0.141;
+const float wheelbase = 0.148;
 
 // Define motor PID gains
-const float Kp = 0.4;
-const float Ki = 1.9;
+const float Kp = 2000.0;
+const float Ki = 2000.0;
 const float Kd = 0.0;
 
 // Define motors max command
@@ -63,7 +63,7 @@ int lastSpeedCmdLeft = 0;
 int lastSpeedCmdRight = 0;
 
 // Define maximum speed command change per time step
-const int accelMax = 10;;
+const int accelMax = 1000;
 
 // Heartbeat, to be displayed on LED.
 int heartbeatCount = 0;
@@ -104,7 +104,7 @@ struct Data
   char notes[14];
 };
 
-PololuRPiSlave<struct Data,5> slave;
+PololuRPiSlave<struct Data,10> slave;
 
 // Sets the motor speeds using PID controllers
 void setMotorSpeeds(float speedLeft, float speedRight)
@@ -195,6 +195,7 @@ void loop()
   if (slave.buffer.resetOdometer)
   {
     odometer.reset();
+    slave.buffer.resetOdometer = 0;
   }
   // Write odometry values into data structure
   slave.buffer.x = odometer.getX();
